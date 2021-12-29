@@ -1,63 +1,43 @@
 import { Box, Typography } from '@mui/material';
-import { useState } from 'react';
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
+import { useCallback, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import MenuAppBar from 'components/AppBar';
 import MuiDrawer from 'components/Drawer';
 import { DrawerHeader } from 'components/Drawer/styled';
 import handleLinkClick from 'utils/linkHandler';
+import useMenu from 'utils/useMenu';
+import { IMenuProps } from 'types';
 
-const drawerWidth = 240;
-
-const TestContainer: React.FC = () => {
+const TestContainer: React.FC<IMenuProps> = ({ title }) => {
   const theme = useTheme();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [menu, setMenu] = useState([
-    {
-      title: `first`,
-      subMenu: [
-        {
-          label: `home`,
-          link: `/`,
-        },
-        {
-          label: `test`,
-          link: `/test`,
-        },
-      ],
-    },
-    {
-      title: `second`,
-      subMenu: [],
-    },
-  ]);
+  const menu = useMenu(title);
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
-  const handleMenuAction = link => {
-    console.log(link);
-    handleLinkClick(link, history);
-  };
+  const handleMenuAction = useCallback(link => {
+    handleLinkClick(link, navigate);
+  }, []);
   return (
     <Box sx={{ display: 'flex' }}>
       <MenuAppBar
         title={`TEST`}
         position={`fixed`}
         open={open}
-        drawerWidth={drawerWidth}
         handleLeftMenu={handleDrawerToggle}
       />
       <MuiDrawer
         variant={`permanent`}
         open={open}
-        drawerWidth={drawerWidth}
         menu={menu}
+        handleDrawerToggle={handleDrawerToggle}
         handleMenuAction={handleMenuAction}
       />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <div>Test</div>
+        <div>{title}</div>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus

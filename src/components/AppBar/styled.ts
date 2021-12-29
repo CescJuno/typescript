@@ -2,9 +2,10 @@ import { styled as muiStyle } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import { IMuiAppBarProps } from 'types';
 
+const drawerWidth = 240;
 export const StyledAppBar = muiStyle(MuiAppBar, {
   shouldForwardProp: prop => prop !== 'open',
-})<IMuiAppBarProps>(({ theme, open, drawerWidth }) => ({
+})<IMuiAppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,

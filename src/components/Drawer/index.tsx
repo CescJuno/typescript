@@ -1,12 +1,16 @@
 import { useState } from 'react';
-import { Collapse, IconButton, useTheme, ListItemButton } from '@mui/material';
+import {
+  Collapse,
+  IconButton,
+  useTheme,
+  ListItemButton,
+  ListItem,
+  List,
+} from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import MailIcon from '@mui/icons-material/Mail';
 import Divider from '@mui/material/Divider';
 import { IMuiDrawerProps } from 'types';
@@ -18,19 +22,15 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
   open,
   menu,
   variant,
-  drawerWidth,
+  handleDrawerToggle,
   handleMenuAction,
 }) => {
   const theme = useTheme();
   const [activeIndex, setActiveIndex] = useState(-1);
   return (
-    <StyledDrawer variant={variant} open={open} drawerWidth={drawerWidth}>
+    <StyledDrawer variant={variant} open={open}>
       <DrawerHeader>
-        <IconButton
-          onClick={() => {
-            console.log(1);
-          }}
-        >
+        <IconButton onClick={handleDrawerToggle}>
           {theme.direction === 'rtl' ? (
             <ChevronRightIcon />
           ) : (
@@ -46,13 +46,22 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
               <>
                 <ListItemButton
                   key={index}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => {
+                    setActiveIndex(index);
+                    if (fp.isEmpty(elem.subMenu)) handleMenuAction(elem.link);
+                  }}
                 >
                   <ListItemIcon>
                     <MailIcon />
                   </ListItemIcon>
                   <ListItemText primary={elem.title} />
-                  {index === activeIndex ? <ExpandLess /> : <ExpandMore />}
+                  {fp.isEmpty(elem.subMenu) ? (
+                    ``
+                  ) : index === activeIndex ? (
+                    <ExpandLess />
+                  ) : (
+                    <ExpandMore />
+                  )}
                 </ListItemButton>
                 <Divider />
                 {index === activeIndex &&
@@ -88,5 +97,6 @@ MuiDrawer.defaultProps = {
   open: false,
   menu: [],
   handleMenuAction: null,
+  handleDrawerToggle: null,
 };
 export default MuiDrawer;

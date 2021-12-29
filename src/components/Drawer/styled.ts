@@ -36,8 +36,8 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
 
 export const StyledDrawer = styled(MuiDrawer, {
   shouldForwardProp: prop => prop !== 'open',
-})<IMuiDrawerProps>(({ theme, open, drawerWidth }) => ({
-  width: drawerWidth,
+})<IMuiDrawerProps>(({ theme, open }) => ({
+  width: drawerW,
   flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',

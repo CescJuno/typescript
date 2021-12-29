@@ -4,5 +4,3 @@
  */
 export { default as DashboardContainer } from './Dashboard/index';
 export { default as TestContainer } from './Test/index';
-export { default as HeaderContainer } from './header/index';
-export { default as Footer } from './footer/index';

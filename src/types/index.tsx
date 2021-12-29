@@ -13,37 +13,30 @@ type CustomColor =
   | 'brown'
   | undefined;
 
-interface SubMenu {
+interface ISubMenuProps {
   label: string;
   link: string;
 }
-interface Menu {
+export interface IMenuProps {
   title: string;
-  subMenu: SubMenu[];
+  link?: string;
+  subMenu?: ISubMenuProps[];
 }
 export interface IMuiDrawerProps extends MuiDrawerProps {
   open?: boolean;
-  menu?: Menu[] | undefined;
-  drawerWidth?: number;
+  menu?: IMenuProps[] | undefined;
   handleMenuAction?: any;
+  handleDrawerToggle?: any;
 }
 export interface IMuiAppBarProps extends MuiAppBarProps {
   title?: string;
   open?: boolean;
-  drawerWidth?: number;
   handleLeftMenu?: any;
 }
 export interface IThemeColor {
   themeColor?: ThemeColor;
 }
-export interface HeaderProps {
-  title: string;
-  topMenu?: List;
-}
-export interface HeaderTopProps {
-  topMenu?: List;
-}
-export interface ReactHelmetProps {
+export interface IReactHelmetProps {
   lang?: string;
   type?: string;
   canonical?: string;
