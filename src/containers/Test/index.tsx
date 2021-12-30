@@ -36,7 +36,7 @@ const TestContainer: React.FC<IMenuProps> = ({ title }) => {
         handleMenuAction={handleMenuAction}
       />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
+        <DrawerHeader paddingM={`44px 0 0`} />
         <div>{title}</div>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

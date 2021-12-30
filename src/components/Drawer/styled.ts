@@ -1,9 +1,9 @@
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
-import { IMuiDrawerProps } from 'types';
+import { IMuiDrawerProps, IPaddingProps } from 'types';
 
 const drawerW = 240;
-type ExtendedMixin = IMuiDrawerProps;
+type ExtendedMixin = IPaddingProps & Theme;
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerW,
   transition: theme.transitions.create('width', {
@@ -19,20 +19,27 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(0)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
+    width: `calc(${theme.spacing(7)} + 1px)`,
   },
 });
-
-export const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
+const paddingMixin = (paddingM): CSSObject => ({
+  padding: paddingM,
+});
+export const DrawerHeader = styled('div')<IPaddingProps>(
+  ({ theme, paddingM }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    [theme.breakpoints.down('sm')]: {
+      ...(paddingM !== undefined && paddingMixin(paddingM)),
+    },
+  }),
+);
 
 export const StyledDrawer = styled(MuiDrawer, {
   shouldForwardProp: prop => prop !== 'open',

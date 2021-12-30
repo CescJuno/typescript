@@ -17,6 +17,9 @@ interface ISubMenuProps {
   label: string;
   link: string;
 }
+export interface IPaddingProps {
+  paddingM?: string;
+}
 export interface IMenuProps {
   title: string;
   link?: string;
