@@ -31,6 +31,7 @@ module.exports = {
         allowSingleExtends: true,
       },
     ],
+    'no-param-reassign': [2, { props: false }],
     'no-nested-ternary': 0,
     'react/prop-types': 0,
     'react/prefer-stateless-function': 0,

@@ -35,7 +35,7 @@ const DashboardPage1Container: React.FC<IMenuProps> = ({
   return (
     <Box sx={{ display: 'flex' }}>
       <MenuAppBar
-        title={`TEST`}
+        title={`Juno Console`}
         position={`fixed`}
         open={listMenuOpen}
         handleLeftMenu={() => setListMenuOpen(!listMenuOpen)}

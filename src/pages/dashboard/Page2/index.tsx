@@ -7,7 +7,7 @@ const DashboardPage1: React.FC = () => {
   return (
     <>
       <ReactHelmet
-        title={`dashboard`}
+        title={`Page2 - Dashboard - Juno Console`}
         themeColor={theme.palette.primary.main}
       />
       <DashboardPage2Container title={`dashboard`} pageTitle={`page2`} />

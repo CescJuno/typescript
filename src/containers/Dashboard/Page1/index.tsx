@@ -1,6 +1,11 @@
-import { Box, Drawer, Typography } from '@mui/material';
+import {
+  Box,
+  Drawer,
+  getCircularProgressUtilityClass,
+  Typography,
+} from '@mui/material';
 import fp from 'lodash/fp';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import MenuAppBar from 'components/AppBar';
@@ -10,16 +15,38 @@ import { DrawerHeader } from 'components/Drawer/styled';
 import handleLinkClick from 'utils/linkHandler';
 import useMenu from 'utils/useMenu';
 import { IMenuProps } from 'types';
+import { getCurrency } from 'reducers/apis/currency';
+import { useSelector, useDispatch } from 'react-redux';
+import { createSelector, EntityState } from '@reduxjs/toolkit';
 
+type Org = {
+  error: string;
+  isLoading: boolean;
+  currency: any;
+};
+type RootState = {
+  orgs: EntityState<Org>;
+};
 const DashboardPage2Container: React.FC<IMenuProps> = ({
   title,
   pageTitle,
 }) => {
   const theme = useTheme();
+  const didLoad = useRef(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [listMenuOpen, setListMenuOpen] = useState(false);
   const menu = useMenu(title);
+  const stateSelector = createSelector(
+    state => state.currencyReducer,
+    currencyInfo => ({
+      error: fp.get(`error`, currencyInfo),
+      isLoading: fp.get(`isLoading`, currencyInfo),
+      currency: fp.get(`currency`, currencyInfo),
+    }),
+  );
+  const state = useSelector(stateSelector);
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
@@ -32,10 +59,19 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
   const handleMenuAction = useCallback(link => {
     handleLinkClick(link, navigate);
   }, []);
+  const getCurrencyInfo = useCallback(() => {
+    dispatch(getCurrency());
+  }, [dispatch]);
+  useEffect(() => {
+    if (!didLoad.current) {
+      getCurrencyInfo();
+      didLoad.current = true;
+    }
+  }, []);
   return (
     <Box sx={{ display: 'flex' }}>
       <MenuAppBar
-        title={`TEST`}
+        title={`Juno Console`}
         position={`fixed`}
         open={listMenuOpen}
         handleLeftMenu={() => setListMenuOpen(!listMenuOpen)}
@@ -57,38 +93,19 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
         handleDrawerClose={handleDrawerClose}
         handleMenuAction={handleMenuAction}
       />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, justifyContent: `flex-start` }}
+      >
         <DrawerHeader paddingM={`44px 0 0`} />
         <div>{pageTitle}</div>
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <div style={{ fontWeight: `bold` }}>Currency Info</div>
+        {!fp.isEmpty(state.currency) && (
+          <div>Source : {fp.get(`source`, state.currency)}</div>
+        )}
+        {!fp.isEmpty(state.currency.quotes) && (
+          <div>USDBMD : {fp.get(`USDBMD`, state.currency.quotes)}</div>
+        )}
       </Box>
     </Box>
   );

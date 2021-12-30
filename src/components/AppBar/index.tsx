@@ -27,7 +27,7 @@ const MenuAppBar: React.FC<IMuiAppBarProps> = ({
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <StyledAppBar position={position} open={open}>
         <Toolbar>
           <IconButton

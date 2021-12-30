@@ -32,7 +32,7 @@ const TestSecondContainer: React.FC<IMenuProps> = ({ title, pageTitle }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <MenuAppBar
-        title={`TEST`}
+        title={`Juno Console`}
         position={`fixed`}
         open={listMenuOpen}
         handleLeftMenu={() => setListMenuOpen(!listMenuOpen)}

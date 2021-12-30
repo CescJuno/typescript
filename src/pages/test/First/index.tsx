@@ -6,7 +6,10 @@ const TestFirst: React.FC = () => {
   const theme = useTheme();
   return (
     <>
-      <ReactHelmet title={`test`} themeColor={theme.palette.primary.main} />
+      <ReactHelmet
+        title={`First - Test - Juno Console`}
+        themeColor={theme.palette.primary.main}
+      />
       <TestFirstContainer title={`test`} pageTitle={`first`} />
     </>
   );
