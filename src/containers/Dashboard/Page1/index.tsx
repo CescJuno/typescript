@@ -11,7 +11,10 @@ import handleLinkClick from 'utils/linkHandler';
 import useMenu from 'utils/useMenu';
 import { IMenuProps } from 'types';
 
-const DashboardContainer: React.FC<IMenuProps> = ({ title }) => {
+const DashboardPage2Container: React.FC<IMenuProps> = ({
+  title,
+  pageTitle,
+}) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -56,7 +59,7 @@ const DashboardContainer: React.FC<IMenuProps> = ({ title }) => {
       />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader paddingM={`44px 0 0`} />
-        <div>{title}</div>
+        <div>{pageTitle}</div>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
@@ -90,4 +93,4 @@ const DashboardContainer: React.FC<IMenuProps> = ({ title }) => {
     </Box>
   );
 };
-export default DashboardContainer;
+export default DashboardPage2Container;

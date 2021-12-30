@@ -43,7 +43,7 @@ export const DrawerHeader = styled('div')<IPaddingProps>(
 
 export const StyledDrawer = styled(MuiDrawer, {
   shouldForwardProp: prop => prop !== 'open',
-})<IMuiDrawerProps>(({ theme, open }) => ({
+})<IMuiDrawerProps>(({ theme, open, anchor, variant }) => ({
   width: drawerW,
   flexShrink: 0,
   whiteSpace: 'nowrap',

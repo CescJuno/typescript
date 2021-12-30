@@ -1,7 +1,7 @@
 import React from 'react';
 import fp from 'lodash/fp';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { Dashboard, Test } from 'pages';
+import { DashboardPage1, DashboardPage2, TestFirst, TestSecond } from 'pages';
 
 const Routers: React.FC = () => {
   let baseRouteUrl = '/';
@@ -13,12 +13,28 @@ const Routers: React.FC = () => {
 
   const menu = [
     {
+      path: `${baseRouteUrl}dashboard/page1`,
+      component: <DashboardPage1 />,
+    },
+    {
+      path: `${baseRouteUrl}dashboard/page2`,
+      component: <DashboardPage2 />,
+    },
+    {
+      path: `${baseRouteUrl}test/first`,
+      component: <TestFirst />,
+    },
+    {
+      path: `${baseRouteUrl}test/second`,
+      component: <TestSecond />,
+    },
+    {
       path: `${baseRouteUrl}test`,
-      component: <Test />,
+      component: <TestFirst />,
     },
     {
       path: `${baseRouteUrl}`,
-      component: <Dashboard />,
+      component: <DashboardPage1 />,
     },
   ];
   return (

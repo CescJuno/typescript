@@ -1,14 +1,14 @@
 import ReactHelmet from 'plugins/helmet';
 import { useTheme } from '@mui/material/styles';
-import { TestContainer } from 'containers';
+import { TestFirstContainer } from 'containers';
 
-const Test: React.FC = () => {
+const TestFirst: React.FC = () => {
   const theme = useTheme();
   return (
     <>
       <ReactHelmet title={`test`} themeColor={theme.palette.primary.main} />
-      <TestContainer title={`test`} pageTitle={`test`} />
+      <TestFirstContainer title={`test`} pageTitle={`first`} />
     </>
   );
 };
-export default Test;
+export default TestFirst;

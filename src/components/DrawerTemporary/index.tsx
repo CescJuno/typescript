@@ -6,6 +6,7 @@ import {
   ListItemButton,
   ListItem,
   List,
+  Drawer,
 } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -16,38 +17,26 @@ import Divider from '@mui/material/Divider';
 import { IMuiDrawerProps } from 'types';
 import fp from 'lodash/fp';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
-import { DrawerHeader, StyledDrawer } from './styled';
+import { DrawerHeader } from './styled';
 
-const MuiDrawer: React.FC<IMuiDrawerProps> = ({
+const TemporaryDrawer: React.FC<IMuiDrawerProps> = ({
   open,
   menu,
   anchor,
   variant,
-  handleDrawerOpen,
   handleDrawerClose,
-  handleDrawerToggle,
   handleMenuAction,
 }) => {
   const theme = useTheme();
   const [activeIndex, setActiveIndex] = useState(-1);
   return (
-    <StyledDrawer
+    <Drawer
       variant={variant}
       open={open}
       anchor={anchor}
-      onMouseEnter={handleDrawerOpen}
-      onMouseLeave={handleDrawerClose}
+      onClose={handleDrawerClose}
     >
-      <DrawerHeader>
-        <IconButton onClick={handleDrawerToggle}>
-          {theme.direction === 'rtl' ? (
-            <ChevronRightIcon />
-          ) : (
-            <ChevronLeftIcon />
-          )}
-        </IconButton>
-      </DrawerHeader>
-      <Divider />
+      <DrawerHeader paddingM={`44px 0 0`} />
       <List component="nav" aria-labelledby="nested-list-subheader">
         {!fp.isEmpty(menu) &&
           fp.map.convert({ cap: false })(
@@ -62,18 +51,31 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
                 >
                   <ListItemIcon>{<elem.icon />}</ListItemIcon>
                   <ListItemText primary={elem.title} />
+                  {fp.isEmpty(elem.subMenu) ? (
+                    ``
+                  ) : index === activeIndex ? (
+                    <ExpandLess />
+                  ) : (
+                    <ExpandMore />
+                  )}
                 </ListItemButton>
                 <Divider />
-                {!fp.isEmpty(elem.subMenu) &&
+                {index === activeIndex &&
+                  !fp.isEmpty(elem.subMenu) &&
                   fp.map(
                     item => (
-                      <ListItemButton
-                        onClick={() => handleMenuAction(item.link)}
-                      >
-                        <ListItemIcon>{<item.icon />}</ListItemIcon>
-                        <ListItemText primary={item.label} />
+                      <Collapse in={open} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                          <ListItemButton
+                            sx={{ pl: 4 }}
+                            onClick={() => handleMenuAction(item.link)}
+                          >
+                            <ListItemIcon>{<item.icon />}</ListItemIcon>
+                            <ListItemText primary={item.label} />
+                          </ListItemButton>
+                        </List>
                         <Divider />
-                      </ListItemButton>
+                      </Collapse>
                     ),
                     elem.subMenu,
                   )}
@@ -82,14 +84,14 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
             menu,
           )}
       </List>
-    </StyledDrawer>
+    </Drawer>
   );
 };
-MuiDrawer.defaultProps = {
+TemporaryDrawer.defaultProps = {
   open: false,
   anchor: undefined,
   menu: [],
   handleMenuAction: null,
   handleDrawerToggle: null,
 };
-export default MuiDrawer;
+export default TemporaryDrawer;

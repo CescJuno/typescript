@@ -1,21 +1,30 @@
-import { Box, Typography } from '@mui/material';
 import { useCallback, useState } from 'react';
+import fp from 'lodash/fp';
+import { Box, Divider, Drawer, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import MenuAppBar from 'components/AppBar';
 import MuiDrawer from 'components/Drawer';
+import TemporaryDrawer from 'components/DrawerTemporary';
 import { DrawerHeader } from 'components/Drawer/styled';
 import handleLinkClick from 'utils/linkHandler';
 import useMenu from 'utils/useMenu';
 import { IMenuProps } from 'types';
 
-const TestContainer: React.FC<IMenuProps> = ({ title }) => {
+const TestContainer: React.FC<IMenuProps> = ({ title, pageTitle }) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [listMenuOpen, setListMenuOpen] = useState(false);
   const menu = useMenu(title);
   const handleDrawerToggle = () => {
     setOpen(!open);
+  };
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
   const handleMenuAction = useCallback(link => {
     handleLinkClick(link, navigate);
@@ -25,19 +34,30 @@ const TestContainer: React.FC<IMenuProps> = ({ title }) => {
       <MenuAppBar
         title={`TEST`}
         position={`fixed`}
-        open={open}
-        handleLeftMenu={handleDrawerToggle}
+        open={listMenuOpen}
+        handleLeftMenu={() => setListMenuOpen(!listMenuOpen)}
+      />
+      <TemporaryDrawer
+        anchor={`left`}
+        variant={'temporary'}
+        open={listMenuOpen}
+        menu={menu}
+        handleDrawerClose={() => setListMenuOpen(false)}
+        handleMenuAction={handleMenuAction}
       />
       <MuiDrawer
         variant={`permanent`}
         open={open}
-        menu={menu}
+        menu={fp.filter(elem => elem.title === title, menu)}
         handleDrawerToggle={handleDrawerToggle}
+        handleDrawerOpen={handleDrawerOpen}
+        handleDrawerClose={handleDrawerClose}
         handleMenuAction={handleMenuAction}
       />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader paddingM={`44px 0 0`} />
-        <div>{title}</div>
+        <div>{pageTitle}</div>
+        <Divider />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
@@ -70,5 +90,9 @@ const TestContainer: React.FC<IMenuProps> = ({ title }) => {
       </Box>
     </Box>
   );
+};
+TestContainer.defaultProps = {
+  title: ``,
+  pageTitle: ``,
 };
 export default TestContainer;

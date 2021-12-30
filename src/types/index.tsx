@@ -1,5 +1,7 @@
+import { SvgIconTypeMap } from '@mui/material';
 import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { DrawerProps as MuiDrawerProps } from '@mui/material/Drawer';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
 
 type ThemeColor = '' | undefined;
 type List = Array<string> | undefined;
@@ -16,12 +18,15 @@ type CustomColor =
 interface ISubMenuProps {
   label: string;
   link: string;
+  icon?: OverridableComponent<SvgIconTypeMap> & { muiName: string };
 }
 export interface IPaddingProps {
   paddingM?: string;
 }
 export interface IMenuProps {
   title: string;
+  pageTitle?: string;
+  icon?: OverridableComponent<SvgIconTypeMap> & { muiName: string };
   link?: string;
   subMenu?: ISubMenuProps[];
 }
@@ -30,6 +35,8 @@ export interface IMuiDrawerProps extends MuiDrawerProps {
   menu?: IMenuProps[] | undefined;
   handleMenuAction?: any;
   handleDrawerToggle?: any;
+  handleDrawerOpen?: any;
+  handleDrawerClose?: any;
 }
 export interface IMuiAppBarProps extends MuiAppBarProps {
   title?: string;
