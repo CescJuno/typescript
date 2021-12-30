@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Drawer,
   getCircularProgressUtilityClass,
   Typography,
@@ -95,10 +96,22 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
       />
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, justifyContent: `flex-start` }}
+        sx={{ flexGrow: 1, p: 0, justifyContent: `flex-start` }}
       >
         <DrawerHeader paddingM={`44px 0 0`} />
-        <div>{pageTitle}</div>
+        <Box
+          component={`div`}
+          sx={{
+            height: `49px`,
+            alignItems: `center`,
+            display: `flex`,
+            p: `0 16px`,
+            backgroundColor: theme.palette.common.white,
+          }}
+        >
+          {pageTitle}
+        </Box>
+        <Divider />
         <div style={{ fontWeight: `bold` }}>Currency Info</div>
         {!fp.isEmpty(state.currency) && (
           <div>Source : {fp.get(`source`, state.currency)}</div>

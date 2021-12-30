@@ -1,4 +1,4 @@
-import { Box, Drawer, Typography } from '@mui/material';
+import { Box, Divider, Drawer, Typography } from '@mui/material';
 import fp from 'lodash/fp';
 import { useState, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -57,9 +57,24 @@ const DashboardPage1Container: React.FC<IMenuProps> = ({
         handleDrawerClose={handleDrawerClose}
         handleMenuAction={handleMenuAction}
       />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 0, justifyContent: `flex-start` }}
+      >
         <DrawerHeader paddingM={`44px 0 0`} />
-        <div>{pageTitle}</div>
+        <Box
+          component={`div`}
+          sx={{
+            height: `49px`,
+            alignItems: `center`,
+            display: `flex`,
+            p: `0 16px`,
+            backgroundColor: theme.palette.common.white,
+          }}
+        >
+          {pageTitle}
+        </Box>
+        <Divider />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus

@@ -48,7 +48,11 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <List component="nav" aria-labelledby="nested-list-subheader">
+      <List
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        sx={{ p: `0` }}
+      >
         {!fp.isEmpty(menu) &&
           fp.map.convert({ cap: false })(
             (elem, index) => (
