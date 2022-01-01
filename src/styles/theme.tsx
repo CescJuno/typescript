@@ -17,8 +17,11 @@ import {
   brown,
   blueGrey,
 } from '@mui/material/colors';
+import { PaletteMode } from '@mui/material';
+import { Theme } from '@emotion/react';
 
-export const myTheme = {
+type ITheme = Theme;
+const myTheme: ITheme = {
   breakpoints: {
     values: {
       xs: 361,
@@ -29,7 +32,7 @@ export const myTheme = {
     },
   },
   palette: {
-    type: 'light',
+    mode: 'light',
     background: {
       default: '#f3f4f8',
       paper: '#ffffff',
@@ -217,7 +220,6 @@ export const myTheme = {
       '-apple-system,BlinkMacSystemFont,"Malgun Gothic", "Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";',
   },
 };
-
 const theme = createTheme(myTheme);
 
 export default theme;

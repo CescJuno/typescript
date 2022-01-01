@@ -5,9 +5,11 @@ import progressMiddleware from 'middleware/progress';
 import reducer from 'reducers';
 import App from './App';
 
+export type RootState = ReturnType<typeof reducer>;
 const store = configureStore({
   reducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware({ immutableCheck: false }).concat(progressMiddleware),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({ immutableCheck: false }).concat(progressMiddleware),
   devTools: process.env.NODE_ENV !== `production`,
 });
 const rootElement = document.getElementById('root');

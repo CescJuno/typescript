@@ -41,9 +41,8 @@ const TemporaryDrawer: React.FC<IMuiDrawerProps> = ({
         {!fp.isEmpty(menu) &&
           fp.map.convert({ cap: false })(
             (elem, index) => (
-              <>
+              <div key={index}>
                 <ListItemButton
-                  key={index}
                   onClick={() => {
                     setActiveIndex(index);
                     if (fp.isEmpty(elem.subMenu)) handleMenuAction(elem.link);
@@ -62,9 +61,14 @@ const TemporaryDrawer: React.FC<IMuiDrawerProps> = ({
                 <Divider />
                 {index === activeIndex &&
                   !fp.isEmpty(elem.subMenu) &&
-                  fp.map(
-                    item => (
-                      <Collapse in={open} timeout="auto" unmountOnExit>
+                  fp.map.convert({ cap: false })(
+                    (item, idx) => (
+                      <Collapse
+                        key={idx}
+                        in={open}
+                        timeout="auto"
+                        unmountOnExit
+                      >
                         <List component="div" disablePadding>
                           <ListItemButton
                             sx={{ pl: 4 }}
@@ -79,7 +83,7 @@ const TemporaryDrawer: React.FC<IMuiDrawerProps> = ({
                     ),
                     elem.subMenu,
                   )}
-              </>
+              </div>
             ),
             menu,
           )}

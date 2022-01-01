@@ -46,6 +46,12 @@ const useMenu = props => {
           },
         ],
       },
+      {
+        title: `empty`,
+        icon: AnalyticsIcon,
+        link: `${process.env.REACT_APP_BASE_URL}/empty`,
+        subMenu: [],
+      },
     ]);
     return () => setMenu([]);
   }, []);

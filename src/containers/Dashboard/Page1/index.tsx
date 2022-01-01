@@ -61,7 +61,7 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
     handleLinkClick(link, navigate);
   }, []);
   const getCurrencyInfo = useCallback(() => {
-    dispatch(getCurrency());
+    dispatch(getCurrency(`a`));
   }, [dispatch]);
   useEffect(() => {
     if (!didLoad.current) {
@@ -112,13 +112,15 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
           {pageTitle}
         </Box>
         <Divider />
-        <div style={{ fontWeight: `bold` }}>Currency Info</div>
-        {!fp.isEmpty(state.currency) && (
-          <div>Source : {fp.get(`source`, state.currency)}</div>
-        )}
-        {!fp.isEmpty(state.currency.quotes) && (
-          <div>USDBMD : {fp.get(`USDBMD`, state.currency.quotes)}</div>
-        )}
+        <Box sx={{ p: 2 }}>
+          <div style={{ fontWeight: `bold` }}>Currency Info</div>
+          {!fp.isEmpty(state.currency) && (
+            <div>Source : {fp.get(`source`, state.currency)}</div>
+          )}
+          {!fp.isEmpty(state.currency.quotes) && (
+            <div>USDBMD : {fp.get(`USDBMD`, state.currency.quotes)}</div>
+          )}
+        </Box>
       </Box>
     </Box>
   );

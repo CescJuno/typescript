@@ -1,21 +1,13 @@
 import { useState } from 'react';
-import {
-  Collapse,
-  IconButton,
-  useTheme,
-  ListItemButton,
-  ListItem,
-  List,
-} from '@mui/material';
+import { IconButton, useTheme, ListItemButton, List } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import Divider from '@mui/material/Divider';
 import { IMuiDrawerProps } from 'types';
 import fp from 'lodash/fp';
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import { DrawerHeader, StyledDrawer } from './styled';
 
 const MuiDrawer: React.FC<IMuiDrawerProps> = ({
@@ -56,9 +48,8 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
         {!fp.isEmpty(menu) &&
           fp.map.convert({ cap: false })(
             (elem, index) => (
-              <>
+              <div key={index}>
                 <ListItemButton
-                  key={index}
                   onClick={() => {
                     setActiveIndex(index);
                     if (fp.isEmpty(elem.subMenu)) handleMenuAction(elem.link);
@@ -69,9 +60,10 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
                 </ListItemButton>
                 <Divider />
                 {!fp.isEmpty(elem.subMenu) &&
-                  fp.map(
-                    item => (
+                  fp.map.convert({ cap: false })(
+                    (item, idx) => (
                       <ListItemButton
+                        key={idx}
                         onClick={() => handleMenuAction(item.link)}
                       >
                         <ListItemIcon>{<item.icon />}</ListItemIcon>
@@ -81,7 +73,7 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
                     ),
                     elem.subMenu,
                   )}
-              </>
+              </div>
             ),
             menu,
           )}

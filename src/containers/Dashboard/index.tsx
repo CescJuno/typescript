@@ -1,4 +1,4 @@
-import { Box, Drawer, Typography } from '@mui/material';
+import { Box, Divider, Drawer, Typography } from '@mui/material';
 import fp from 'lodash/fp';
 import { useState, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
@@ -71,6 +71,8 @@ const DashboardContainer: React.FC<IMenuProps> = ({ title, pageTitle }) => {
         >
           {pageTitle}
         </Box>
+        <Divider />
+        <Box sx={{ p: 2 }}>sfsdf</Box>
       </Box>
     </Box>
   );

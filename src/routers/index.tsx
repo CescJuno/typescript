@@ -1,7 +1,13 @@
 import React from 'react';
 import fp from 'lodash/fp';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { DashboardPage1, DashboardPage2, TestFirst, TestSecond } from 'pages';
+import {
+  DashboardPage1,
+  DashboardPage2,
+  TestFirst,
+  TestSecond,
+  Empty,
+} from 'pages';
 
 const Routers: React.FC = () => {
   let baseRouteUrl = '/';
@@ -31,6 +37,10 @@ const Routers: React.FC = () => {
     {
       path: `${baseRouteUrl}test`,
       component: <TestFirst />,
+    },
+    {
+      path: `${baseRouteUrl}empty`,
+      component: <Empty />,
     },
     {
       path: `${baseRouteUrl}`,

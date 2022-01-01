@@ -8,3 +8,4 @@ export { default as DashboardPage2Container } from './Dashboard/Page2/index';
 export { default as TestContainer } from './Test/index';
 export { default as TestFirstContainer } from './Test/First/index';
 export { default as TestSecondContainer } from './Test/Second/index';
+export { default as EmptyContainer } from './Empty/index';

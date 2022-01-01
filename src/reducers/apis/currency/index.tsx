@@ -9,7 +9,7 @@ const $axios = axios.create({
 
 export const getCurrency = createAsyncThunk(
   `currency/getCurrency`,
-  async query => {
+  async (query: string) => {
     const response = await $axios.get(
       process.env.REACT_APP_DUMMY === 'true'
         ? `/domains/price.json?q=${query}`
@@ -18,14 +18,13 @@ export const getCurrency = createAsyncThunk(
     return response.data;
   },
 );
+type SliceState = { isLoading: boolean; error: any; currency: any };
 
+// First approach: define the initial state using that type
+const initialState: SliceState = { isLoading: true, error: null, currency: {} };
 const slice = createSlice({
   name: `currency`,
-  initialState: {
-    isLoading: true,
-    error: null,
-    currency: {},
-  },
+  initialState,
   reducers: {
     resetError: state => {
       return {
@@ -35,7 +34,11 @@ const slice = createSlice({
     },
   },
   extraReducers: builder => {
-    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(getCurrency.pending, (state, action) => {
+      // both `state` and `action` are now correctly typed
+      // based on the slice state and the `pending` action creator
+      state.isLoading = true;
+    });
     builder.addCase(getCurrency.fulfilled, (state, { payload }) => {
       state.isLoading = false;
       state.currency = payload;
