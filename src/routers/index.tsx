@@ -7,7 +7,9 @@ import {
   TestFirst,
   TestSecond,
   Empty,
+  Error,
 } from 'pages';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const Routers: React.FC = () => {
   let baseRouteUrl = '/';
@@ -48,20 +50,27 @@ const Routers: React.FC = () => {
     },
   ];
   return (
-    <BrowserRouter>
-      <Routes>
-        {fp.map(
-          item => (
-            <Route
-              key={fp.pipe(fp.get(`component`), fp.toString)(item)}
-              path={fp.get('path', item)}
-              element={fp.get('component', item)}
-            />
-          ),
-          menu,
-        )}
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary
+      FallbackComponent={Error}
+      onReset={() => {
+        // reset the state of your app so the error doesn't happen again
+      }}
+    >
+      <BrowserRouter>
+        <Routes>
+          {fp.map(
+            item => (
+              <Route
+                key={fp.pipe(fp.get(`component`), fp.toString)(item)}
+                path={fp.get('path', item)}
+                element={fp.get('component', item)}
+              />
+            ),
+            menu,
+          )}
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 };
 export default Routers;

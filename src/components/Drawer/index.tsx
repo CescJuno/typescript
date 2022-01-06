@@ -13,6 +13,7 @@ import { DrawerHeader, StyledDrawer } from './styled';
 const MuiDrawer: React.FC<IMuiDrawerProps> = ({
   open,
   menu,
+  activeMenu,
   anchor,
   variant,
   handleDrawerOpen,
@@ -56,7 +57,15 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
                   }}
                 >
                   <ListItemIcon>{<elem.icon />}</ListItemIcon>
-                  <ListItemText primary={elem.title} />
+                  <ListItemText
+                    primary={elem.title}
+                    style={{
+                      color:
+                        activeMenu === elem.title
+                          ? theme.palette.primary.main
+                          : ``,
+                    }}
+                  />
                 </ListItemButton>
                 <Divider />
                 {!fp.isEmpty(elem.subMenu) &&
@@ -65,8 +74,23 @@ const MuiDrawer: React.FC<IMuiDrawerProps> = ({
                       <ListItemButton
                         key={idx}
                         onClick={() => handleMenuAction(item.link)}
+                        style={{
+                          color:
+                            activeMenu === item.label
+                              ? theme.palette.primary.main
+                              : ``,
+                        }}
                       >
-                        <ListItemIcon>{<item.icon />}</ListItemIcon>
+                        <ListItemIcon
+                          sx={{
+                            color:
+                              activeMenu === item.label
+                                ? theme.palette.primary.main
+                                : ``,
+                          }}
+                        >
+                          {<item.icon />}
+                        </ListItemIcon>
                         <ListItemText primary={item.label} />
                         <Divider />
                       </ListItemButton>
@@ -85,6 +109,7 @@ MuiDrawer.defaultProps = {
   open: false,
   anchor: undefined,
   menu: [],
+  activeMenu: ``,
   handleMenuAction: null,
   handleDrawerToggle: null,
 };

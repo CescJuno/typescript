@@ -33,6 +33,7 @@ export interface IMenuProps {
 export interface IMuiDrawerProps extends MuiDrawerProps {
   open?: boolean;
   menu?: IMenuProps[] | undefined;
+  activeMenu?: string;
   handleMenuAction?: any;
   handleDrawerToggle?: any;
   handleDrawerOpen?: any;

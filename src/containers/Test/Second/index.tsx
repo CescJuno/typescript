@@ -48,6 +48,7 @@ const TestSecondContainer: React.FC<IMenuProps> = ({ title, pageTitle }) => {
       <MuiDrawer
         variant={`permanent`}
         open={open}
+        activeMenu={pageTitle}
         menu={fp.filter(elem => elem.title === title, menu)}
         handleDrawerToggle={handleDrawerToggle}
         handleDrawerOpen={handleDrawerOpen}

@@ -51,6 +51,7 @@ const DashboardPage1Container: React.FC<IMenuProps> = ({
       <MuiDrawer
         variant={`permanent`}
         open={open}
+        activeMenu={pageTitle}
         menu={fp.filter(elem => elem.title === title, menu)}
         handleDrawerToggle={handleDrawerToggle}
         handleDrawerOpen={handleDrawerOpen}

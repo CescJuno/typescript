@@ -89,6 +89,7 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
         variant={`permanent`}
         open={open}
         menu={fp.filter(elem => elem.title === title, menu)}
+        activeMenu={pageTitle}
         handleDrawerToggle={handleDrawerToggle}
         handleDrawerOpen={handleDrawerOpen}
         handleDrawerClose={handleDrawerClose}

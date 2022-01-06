@@ -9,3 +9,4 @@ export { default as Test } from './Test/index';
 export { default as TestFirst } from './Test/First/index';
 export { default as TestSecond } from './Test/Second/index';
 export { default as Empty } from './Empty/index';
+export { default as Error } from './Error/index';
