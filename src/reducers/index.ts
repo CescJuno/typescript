@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import currencyReducer from './apis/currency';
+import currency from './apis/currency';
 
-const rootReducer = combineReducers({ currencyReducer });
+const rootReducer = combineReducers({ currency });
 
 export default rootReducer;

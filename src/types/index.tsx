@@ -2,6 +2,9 @@ import { SvgIconTypeMap } from '@mui/material';
 import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { DrawerProps as MuiDrawerProps } from '@mui/material/Drawer';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { RouterState } from 'connected-react-router';
+import { Reducer } from 'react';
+import { AnyAction } from 'redux';
 
 type ThemeColor = '' | undefined;
 type List = Array<string> | undefined;
@@ -15,6 +18,30 @@ type CustomColor =
   | 'brown'
   | undefined;
 
+export type LoginReqType = {
+  email: string;
+  password: string;
+};
+
+export interface AuthState {
+  token: string | null;
+  loading: boolean;
+  error: Error | null;
+}
+
+export type CurrencyState = {
+  loading: boolean;
+  error: Error | null;
+  currency: unknown;
+};
+export interface CurrencyRootState {
+  currency: CurrencyState;
+  router: Reducer<RouterState<unknown>, AnyAction>;
+}
+export interface AuthRootState {
+  auth: AuthState;
+  router: Reducer<RouterState<unknown>, AnyAction>;
+}
 interface ISubMenuProps {
   label: string;
   link: string;
@@ -34,10 +61,10 @@ export interface IMuiDrawerProps extends MuiDrawerProps {
   open?: boolean;
   menu?: IMenuProps[] | undefined;
   activeMenu?: string;
-  handleMenuAction?: any;
-  handleDrawerToggle?: any;
-  handleDrawerOpen?: any;
-  handleDrawerClose?: any;
+  handleMenuAction?: unknown;
+  handleDrawerToggle?: unknown;
+  handleDrawerOpen?: unknown;
+  handleDrawerClose?: unknown;
 }
 export interface IMuiAppBarProps extends MuiAppBarProps {
   title?: string;

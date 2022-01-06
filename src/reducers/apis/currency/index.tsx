@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { CurrencyState } from 'types';
 
 const $axios = axios.create({
   baseURL: `${process.env.REACT_APP_API_URL}`,
@@ -7,21 +8,21 @@ const $axios = axios.create({
   timeout: 30000,
 });
 
-export const getCurrency = createAsyncThunk(
-  `currency/getCurrency`,
-  async (query: string) => {
-    const response = await $axios.get(
-      process.env.REACT_APP_DUMMY === 'true'
-        ? `/domains/price.json?q=${query}`
-        : `/live?access_key=${process.env.REACT_APP_API_KEY}`,
-    );
-    return response.data;
-  },
-);
-type SliceState = { isLoading: boolean; error: any; currency: any };
-
 // First approach: define the initial state using that type
-const initialState: SliceState = { isLoading: true, error: null, currency: {} };
+const initialState: CurrencyState = {
+  loading: true,
+  error: null,
+  currency: {},
+};
+const prefix = 'currency/getCurrency';
+export const getCurrency = createAsyncThunk(prefix, async (query: string) => {
+  const response = await $axios.get(
+    process.env.REACT_APP_DUMMY === 'true'
+      ? `/domains/price.json?q=${query}`
+      : `/live?access_key=${process.env.REACT_APP_API_KEY}`,
+  );
+  return response.data;
+});
 const slice = createSlice({
   name: `currency`,
   initialState,
@@ -37,14 +38,14 @@ const slice = createSlice({
     builder.addCase(getCurrency.pending, (state, action) => {
       // both `state` and `action` are now correctly typed
       // based on the slice state and the `pending` action creator
-      state.isLoading = true;
+      state.loading = true;
     });
     builder.addCase(getCurrency.fulfilled, (state, { payload }) => {
-      state.isLoading = false;
+      state.loading = false;
       state.currency = payload;
     });
     builder.addCase(getCurrency.rejected, (state, { payload }) => {
-      state.isLoading = false;
+      state.loading = false;
     });
     // builder.addCase(getCurrency.fulfilled, (state, action) => {
     //   // Add user to the state array

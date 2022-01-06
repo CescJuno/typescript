@@ -10,6 +10,8 @@ import {
   Error,
 } from 'pages';
 import { ErrorBoundary } from 'react-error-boundary';
+import { ConnectedRouter } from 'connected-react-router';
+import history from '../historys';
 
 const Routers: React.FC = () => {
   let baseRouteUrl = '/';

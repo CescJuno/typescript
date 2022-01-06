@@ -15,7 +15,7 @@ import TemporaryDrawer from 'components/DrawerTemporary';
 import { DrawerHeader } from 'components/Drawer/styled';
 import handleLinkClick from 'utils/linkHandler';
 import useMenu from 'utils/useMenu';
-import { IMenuProps } from 'types';
+import { CurrencyRootState, IMenuProps } from 'types';
 import { getCurrency } from 'reducers/apis/currency';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector, EntityState } from '@reduxjs/toolkit';
@@ -40,7 +40,7 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
   const [listMenuOpen, setListMenuOpen] = useState(false);
   const menu = useMenu(title);
   const stateSelector = createSelector(
-    state => state.currencyReducer,
+    state => state.currency,
     currencyInfo => ({
       error: fp.get(`error`, currencyInfo),
       isLoading: fp.get(`isLoading`, currencyInfo),

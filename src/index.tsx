@@ -1,17 +1,17 @@
 import { Provider } from 'react-redux';
 import { hydrate, render } from 'react-dom';
-import { configureStore } from '@reduxjs/toolkit';
-import progressMiddleware from 'middleware/progress';
-import reducer from 'reducers';
+// import create from 'reducers/create';
+import createToolkit from 'reducers/createToolkit';
 import App from './App';
 
-export type RootState = ReturnType<typeof reducer>;
-const store = configureStore({
-  reducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({ immutableCheck: false }).concat(progressMiddleware),
-  devTools: process.env.NODE_ENV !== `production`,
-});
+// const store = create();
+const store = createToolkit;
+// const store = configureStore({
+//   reducer,
+//   middleware: getDefaultMiddleware =>
+//     getDefaultMiddleware({ immutableCheck: false }).concat(progressMiddleware),
+//   devTools: process.env.NODE_ENV !== `production`,
+// });
 const rootElement = document.getElementById('root');
 
 if (rootElement === null || rootElement.hasChildNodes()) {
