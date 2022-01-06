@@ -1,5 +1,3 @@
-import { findNonSerializableValue } from '@reduxjs/toolkit';
-import { push } from 'connected-react-router';
 import { Action, createActions, handleActions } from 'redux-actions';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import TokenSerice from 'services/TokenService';
@@ -51,7 +49,7 @@ function* loginSaga(action: Action<LoginReqType>) {
     const token: string = yield call(UserService.login, action.payload);
     TokenSerice.set(token);
     yield put(success(token));
-    yield put(push('/'));
+    // yield put(push('/'));
   } catch (error) {
     // yield put(fail(new Error(error?.response?.data.error || `UNKNOWN_ERROR`)));
   }
@@ -63,7 +61,7 @@ function* logoutSaga() {
     const token: string = yield select(state => state.auth.token);
     yield call(UserService.logout, token);
     TokenSerice.set(token);
-    yield put(push('/'));
+    // yield put(push('/'));
   } catch (e) {
     console.log(e);
   } finally {

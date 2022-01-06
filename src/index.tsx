@@ -1,11 +1,11 @@
 import { Provider } from 'react-redux';
 import { hydrate, render } from 'react-dom';
-// import create from 'reducers/create';
+import create from 'reducers/create';
 import createToolkit from 'reducers/createToolkit';
 import App from './App';
 
-// const store = create();
-const store = createToolkit;
+const store = create();
+// const store = createToolkit;
 // const store = configureStore({
 //   reducer,
 //   middleware: getDefaultMiddleware =>

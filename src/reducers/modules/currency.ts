@@ -1,5 +1,3 @@
-import { findNonSerializableValue } from '@reduxjs/toolkit';
-import { push } from 'connected-react-router';
 import { Action, createActions, handleActions } from 'redux-actions';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import CurrencyService from 'services/CurrencyService';
@@ -42,7 +40,7 @@ const reducer = handleActions<CurrencyState, unknown>(
 );
 export default reducer;
 
-export const { getCurrency } = createActions('getCurrency', { prefix });
+export const { getCurrency } = createActions('GET_CURRENCY', { prefix });
 
 function* getCurrencySaga() {
   try {
@@ -55,5 +53,5 @@ function* getCurrencySaga() {
 }
 
 export function* currencySaga() {
-  yield takeEvery(`${prefix}/getCurrency`, getCurrencySaga);
+  yield takeEvery(`${prefix}/GET_CURRENCY`, getCurrencySaga);
 }

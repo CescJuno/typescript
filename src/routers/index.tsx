@@ -10,8 +10,7 @@ import {
   Error,
 } from 'pages';
 import { ErrorBoundary } from 'react-error-boundary';
-import { ConnectedRouter } from 'connected-react-router';
-import history from '../historys';
+import SigninPage from 'pages/Signin';
 
 const Routers: React.FC = () => {
   let baseRouteUrl = '/';
@@ -45,6 +44,10 @@ const Routers: React.FC = () => {
     {
       path: `${baseRouteUrl}empty`,
       component: <Empty />,
+    },
+    {
+      path: `${baseRouteUrl}signin`,
+      component: <SigninPage />,
     },
     {
       path: `${baseRouteUrl}`,

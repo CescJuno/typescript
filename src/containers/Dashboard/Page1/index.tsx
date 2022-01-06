@@ -16,18 +16,10 @@ import { DrawerHeader } from 'components/Drawer/styled';
 import handleLinkClick from 'utils/linkHandler';
 import useMenu from 'utils/useMenu';
 import { CurrencyRootState, IMenuProps } from 'types';
-import { getCurrency } from 'reducers/apis/currency';
+import { getCurrency } from 'reducers/modules/currency';
 import { useSelector, useDispatch } from 'react-redux';
 import { createSelector, EntityState } from '@reduxjs/toolkit';
 
-type Org = {
-  error: string;
-  isLoading: boolean;
-  currency: any;
-};
-type RootState = {
-  orgs: EntityState<Org>;
-};
 const DashboardPage2Container: React.FC<IMenuProps> = ({
   title,
   pageTitle,
@@ -39,15 +31,18 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
   const [open, setOpen] = useState(false);
   const [listMenuOpen, setListMenuOpen] = useState(false);
   const menu = useMenu(title);
-  const stateSelector = createSelector(
-    state => state.currency,
-    currencyInfo => ({
-      error: fp.get(`error`, currencyInfo),
-      loading: fp.get(`loading`, currencyInfo),
-      currency: fp.get(`currency`, currencyInfo),
-    }),
+  // const stateSelector = createSelector(
+  //   state => state.currency,
+  //   currencyInfo => ({
+  //     error: fp.get(`error`, currencyInfo),
+  //     loading: fp.get(`loading`, currencyInfo),
+  //     currency: fp.get(`currency`, currencyInfo),
+  //   }),
+  // );
+  // const state = useSelector(stateSelector);
+  const currency = useSelector<CurrencyRootState, any | null>(
+    state => state.currency.currency,
   );
-  const state = useSelector(stateSelector);
   const handleDrawerToggle = () => {
     setOpen(!open);
   };
@@ -61,7 +56,7 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
     handleLinkClick(link, navigate);
   }, []);
   const getCurrencyInfo = useCallback(() => {
-    dispatch(getCurrency(`a`));
+    dispatch(getCurrency());
   }, [dispatch]);
   useEffect(() => {
     if (!didLoad.current) {
@@ -115,11 +110,11 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
         <Divider />
         <Box sx={{ p: 2 }}>
           <div style={{ fontWeight: `bold` }}>Currency Info</div>
-          {!fp.isEmpty(state.currency) && (
-            <div>Source : {fp.get(`source`, state.currency)}</div>
+          {!fp.isEmpty(currency) && (
+            <div>Source : {fp.get(`source`, currency)}</div>
           )}
-          {!fp.isEmpty(state.currency.quotes) && (
-            <div>USDBMD : {fp.get(`USDBMD`, state.currency.quotes)}</div>
+          {!fp.isEmpty(currency.quotes) && (
+            <div>USDBMD : {fp.get(`USDBMD`, currency.quotes)}</div>
           )}
         </Box>
       </Box>

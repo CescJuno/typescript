@@ -19,8 +19,8 @@ type CustomColor =
   | undefined;
 
 export type LoginReqType = {
-  email: string;
-  password: string;
+  email: string | null;
+  password: string | null;
 };
 
 export interface AuthState {
@@ -61,10 +61,10 @@ export interface IMuiDrawerProps extends MuiDrawerProps {
   open?: boolean;
   menu?: IMenuProps[] | undefined;
   activeMenu?: string;
-  handleMenuAction?: unknown;
-  handleDrawerToggle?: unknown;
-  handleDrawerOpen?: unknown;
-  handleDrawerClose?: unknown;
+  handleMenuAction?: any;
+  handleDrawerToggle?: any;
+  handleDrawerOpen?: any;
+  handleDrawerClose?: any;
 }
 export interface IMuiAppBarProps extends MuiAppBarProps {
   title?: string;
