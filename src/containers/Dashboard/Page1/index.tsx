@@ -43,7 +43,7 @@ const DashboardPage2Container: React.FC<IMenuProps> = ({
     state => state.currency,
     currencyInfo => ({
       error: fp.get(`error`, currencyInfo),
-      isLoading: fp.get(`isLoading`, currencyInfo),
+      loading: fp.get(`loading`, currencyInfo),
       currency: fp.get(`currency`, currencyInfo),
     }),
   );
